@@ -20,7 +20,7 @@ public class StartUI {
                 Item[] items = tracker.findAll();
                 System.out.println("=== All items ====");
                 for (Item item : items) {
-                    System.out.println("id: " + item.getId() + " name: " + item.getName());
+                    System.out.println(item.toString());
                 }
                 System.out.println();
             } else if (select == 2) {
@@ -28,12 +28,11 @@ public class StartUI {
                 int id = Integer.valueOf(scanner.nextLine());
                 Item item = tracker.findById(id);
                 if (item != null) {
-                    System.out.println("Found: id - " + item.getId() + ", name - " + item.getName());
+                    System.out.println("Found: " + item.toString());
                     System.out.print("Set new name: ");
                     String newName = scanner.nextLine();
-                    Item newItem = new Item();
-                    newItem.setName(newName);
-                    tracker.replace(id, newItem);
+                    item.setName(newName);
+                    tracker.replace(id, item);
                     System.out.println("Successfully saved");
                 } else {
                     System.out.println("Item not found");
@@ -54,7 +53,7 @@ public class StartUI {
                 int input = Integer.valueOf(scanner.nextLine());
                 Item item = tracker.findById(input);
                 if(item != null) {
-                    System.out.println("Found: id - " + item.getId() + " name - " + item.getName());
+                    System.out.println("Found: " + item.toString());
                 } else {
                     System.out.println("Item not found");
                 }
@@ -65,7 +64,7 @@ public class StartUI {
                 Item[] items = tracker.findByName(input);
                 if (items[0] != null) {
                     for(Item item : items) {
-                        System.out.println("Found: id - " + item.getId() + " name - " + item.getName());
+                        System.out.println("Found: " + item.toString());
                     }
                 } else {
                     System.out.println("Nothing not found");
