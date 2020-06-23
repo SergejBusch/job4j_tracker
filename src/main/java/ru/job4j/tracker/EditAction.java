@@ -18,9 +18,9 @@ public class EditAction  implements UserAction {
         Item item = new Item();
         item.setName(input.askStr("Set new name: "));
         if (tracker.replace(id, item)) {
-            System.out.println("Successfully saved");
+            out.println("Successfully saved");
         } else {
-            System.out.println("Item not found");
+            out.println("Item not found");
         }
         return true;
     }
