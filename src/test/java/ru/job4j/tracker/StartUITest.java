@@ -18,7 +18,7 @@ public class StartUITest {
                 new ExitProgramAction()
         };
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findAll()[0].getName(), is("Item name"));
+        assertThat(tracker.findAll().get(0).getName(), is("Item name"));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class StartUITest {
                 new ExitProgramAction()
         };
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findAll()[0].getName(), is("new item"));
+        assertThat(tracker.findAll().get(0).getName(), is("new item"));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class StartUITest {
                 new ExitProgramAction()
         };
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findByName(item2.getName())[0].getId(), is(2));
+        assertThat(tracker.findByName(item2.getName()).get(0).getId(), is(2));
     }
 
     @Test
