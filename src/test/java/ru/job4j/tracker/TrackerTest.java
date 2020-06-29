@@ -56,7 +56,7 @@ public class TrackerTest {
         tracker.add(item3);
         tracker.add(item2);
         tracker.add(item1);
-        Collections.sort(tracker.findAll(),new IncreaseItemSort());
+        Collections.sort(tracker.findAll(), new IncreaseItemSort());
         Assert.assertThat(tracker.findAll(), is(new ArrayList<>(List.of(item1, item2, item3))));
     }
 
@@ -69,7 +69,7 @@ public class TrackerTest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        Collections.sort(tracker.findAll(),new DecreaseItemSort());
+        Collections.sort(tracker.findAll(), new DecreaseItemSort());
         Assert.assertThat(tracker.findAll(), is(new ArrayList<>(List.of(item3, item2, item1))));
     }
 }
