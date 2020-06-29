@@ -10,7 +10,8 @@ import static org.junit.Assert.assertThat;
 public class JobTest {
     @Test
     public void whenCompatorByNameDescAndProrityDesc() {
-        Comparator<Job> cmpNamePriority = new JobNameDescSort().thenComparing(new JobPriorityDescSort());
+        Comparator<Job> cmpNamePriority = new JobNameDescSort()
+                .thenComparing(new JobPriorityDescSort());
         int rsl = cmpNamePriority.compare(
                 new Job("Impl task", 0),
                 new Job("Impl task", 2)
@@ -20,7 +21,8 @@ public class JobTest {
 
     @Test
     public void whenCompatorByProrityAscAndNameDesc() {
-        Comparator<Job> cmpNamePriority = new JobPriorityAscSort().thenComparing(new JobNameDescSort());
+        Comparator<Job> cmpNamePriority = new JobPriorityAscSort()
+                .thenComparing(new JobNameDescSort());
         int rsl = cmpNamePriority.compare(
                 new Job("AA", 0),
                 new Job("CC", 0)
