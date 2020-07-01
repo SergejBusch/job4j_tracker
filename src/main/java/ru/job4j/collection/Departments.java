@@ -13,10 +13,7 @@ public class Departments {
                 tmp.add(start.substring(1));
             }
         }
-        List<String> list = new ArrayList<>(tmp);
-        sortAsc(list);
-        System.out.println(list);
-        return list;
+        return new ArrayList<>(tmp);
     }
 
     public static void sortAsc(List<String> orgs) {
