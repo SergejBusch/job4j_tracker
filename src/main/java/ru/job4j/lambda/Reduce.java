@@ -1,5 +1,6 @@
 package ru.job4j.lambda;
 
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Supplier;
