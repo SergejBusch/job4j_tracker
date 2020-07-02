@@ -51,5 +51,7 @@ public class Reduce {
     public static void main(String[] args) {
         System.out.println(summation(3));
         System.out.println(multiplication(3));
+        Comparator<String> cmpDescSize = (left, right) ->
+                Integer.valueOf(left.length()).compareTo(Integer.valueOf(right.length()));
     }
 }
