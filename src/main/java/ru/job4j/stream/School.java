@@ -13,15 +13,13 @@ public class School {
                 .collect(Collectors.toList());
     }
 
-    public static void main(String[] args) {
-        Map<String, Student> studentMap = (List.of(
-                new Student("Smith", 50),
-                new Student("Fisher", 66))
-                .stream()
+    public static Map<String, Student> listToMap (List<Student> students) {
+                return students.stream()
                 .collect(Collectors.toMap(
                                 Student::getSurname,
-                                student -> student
-                )));
+                                student -> student,
+                                (s1, s2) -> s1
+                ));
     }
 }
 

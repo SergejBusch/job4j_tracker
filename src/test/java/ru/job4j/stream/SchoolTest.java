@@ -4,8 +4,7 @@ import org.junit.Assert;
 import static org.hamcrest.core.Is.is;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -47,5 +46,14 @@ public class SchoolTest {
                 .collect(studentList, combine);
         Assert.assertThat(students, is(new ArrayList<>(
                 List.of(new Student("Bobbi", 10)))));
+    }
+
+    @Test
+    public void whenListToMap2SameElements() {
+        Student student = new Student("Smith", 50);
+        List <Student> studentsList = List.of(student, student);
+        Map<String, Student> result = School.listToMap(studentsList);
+        Map<String, Student> expected = Map.of("Smith", student);
+        Assert.assertThat(result, is(expected));
     }
 }
