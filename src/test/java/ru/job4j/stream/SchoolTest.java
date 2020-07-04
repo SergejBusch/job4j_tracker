@@ -15,6 +15,7 @@ public class SchoolTest {
             new Student("Toni", 60),
             new Student("Franc", 80)
     ));
+
     @Test
     public void whenScoreRangeFrom70until100() {
         Predicate<Student> from = Student -> Student.getScore() >= 70;
