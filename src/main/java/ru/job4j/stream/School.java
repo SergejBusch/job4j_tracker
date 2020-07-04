@@ -13,7 +13,7 @@ public class School {
                 .collect(Collectors.toList());
     }
 
-    public static Map<String, Student> listToMap (List<Student> students) {
+    public static Map<String, Student> listToMap(List<Student> students) {
                 return students.stream()
                 .collect(Collectors.toMap(
                                 Student::getSurname,

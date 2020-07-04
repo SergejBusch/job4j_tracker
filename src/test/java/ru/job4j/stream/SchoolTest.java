@@ -51,7 +51,7 @@ public class SchoolTest {
     @Test
     public void whenListToMap2SameElements() {
         Student student = new Student("Smith", 50);
-        List <Student> studentsList = List.of(student, student);
+        List<Student> studentsList = List.of(student, student);
         Map<String, Student> result = School.listToMap(studentsList);
         Map<String, Student> expected = Map.of("Smith", student);
         Assert.assertThat(result, is(expected));

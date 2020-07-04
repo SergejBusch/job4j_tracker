@@ -10,6 +10,7 @@ public class FlatmapStream {
         List<Integer> listOfInteger = helper(matrix);
         System.out.println(listOfInteger);
     }
+
     public static List<Integer> helper(Integer[][] matrix) {
         return Stream.of(matrix)
                 .flatMap(Stream::of)
