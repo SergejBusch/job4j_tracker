@@ -30,7 +30,7 @@ public class SchoolTest {
     @Test
     public void whenScoreRangeFrom50until70() {
         Predicate<Student> from = Student -> Student.getScore() >= 50;
-        Predicate<Student> until = Student -> Student.getScore() <= 70;
+        Predicate<Student> until = Student -> Student.getScore() < 70;
         Predicate<Student> combine = from.and(until);
         List<Student> students = new School()
                 .collect(studentList, combine);
@@ -41,7 +41,7 @@ public class SchoolTest {
     @Test
     public void whenScoreRangeFrom0until50() {
         Predicate<Student> from = Student -> Student.getScore() >= 0;
-        Predicate<Student> until = Student -> Student.getScore() <= 50;
+        Predicate<Student> until = Student -> Student.getScore() < 50;
         Predicate<Student> combine = from.and(until);
         List<Student> students = new School()
                 .collect(studentList, combine);
