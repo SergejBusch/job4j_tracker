@@ -10,7 +10,7 @@ public class IntegerStream {
         for (int i = 1; i <= 10; i++) {
             integerList.add(i);
         }
-        integerList = integerList.stream().filter(i -> i % 2 == 0).collect(Collectors.toList());
+        integerList = integerList.stream().filter(i -> i > 0).collect(Collectors.toList());
         System.out.println(integerList);
     }
 }
