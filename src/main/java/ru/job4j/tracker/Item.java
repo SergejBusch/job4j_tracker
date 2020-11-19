@@ -8,6 +8,11 @@ public class Item {
         this.name = name;
     }
 
+    public Item(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Item() {
     }
 
@@ -34,5 +39,29 @@ public class Item {
     @Override
     public String toString() {
         return "id - " + this.getId() + " name - " + this.getName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Item item = (Item) o;
+
+        if (id != item.id) {
+            return false;
+        }
+        return name.equals(item.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }
