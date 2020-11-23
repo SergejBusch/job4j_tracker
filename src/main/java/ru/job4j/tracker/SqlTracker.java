@@ -6,16 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class SqlTracker implements Store {
-    private Connection cn;
+public class SqlTracker implements Store, AutoCloseable {
+    private final Connection cn;
 
-    public void init() {
+    public SqlTracker(Connection connection) {
+        cn = connection;
+    }
+
+    public Connection init() {
         try (InputStream in = SqlTracker.class.getClassLoader()
                 .getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
-            cn = DriverManager.getConnection(
+            return DriverManager.getConnection(
                     config.getProperty("url"),
                     config.getProperty("username"),
                     config.getProperty("password")

@@ -3,57 +3,80 @@ package ru.job4j.tracker;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class SqlTrackerTest {
 
-    @Test
-    public void whenAddNewItem() {
-        var sqlTracker = new SqlTracker();
-        sqlTracker.init();
-        var item = new Item("X");
-        var result = sqlTracker.add(item);
-        assertThat(result.getName(), is(item.getName()));
+    public Connection init() {
+        try (InputStream in = SqlTracker.class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("driver-class-name"));
+            return DriverManager.getConnection(
+                    config.getProperty("url"),
+                    config.getProperty("username"),
+                    config.getProperty("password")
+
+            );
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+
     }
 
     @Test
-    public void whenAddThenReplaceName() {
-        var sqlTracker = new SqlTracker();
-        sqlTracker.init();
-        var item = sqlTracker.add(new Item("W"));
-        var item2 = new Item("R");
-        boolean result = sqlTracker.replace(String.valueOf(item.getId()), item2);
-        assertThat(result, is(true));
+    public void whenCreateItem() throws Exception {
+        try (var tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("name"));
+            assertThat(tracker.findByName("name").size(), is(1));
+        }
     }
 
     @Test
-    public void whenAddThenDelete() {
-        var sqlTracker = new SqlTracker();
-        sqlTracker.init();
-        var item = sqlTracker.add(new Item("O"));
-        var item2 = new Item("R");
-        boolean result = sqlTracker.delete(String.valueOf(item.getId()));
-        assertThat(result, is(true));
+    public void whenAddThenReplaceName() throws Exception {
+        try (var tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            var item = tracker.add(new Item("W"));
+            var item2 = new Item("R");
+            boolean result = tracker.replace(String.valueOf(item.getId()), item2);
+            assertThat(result, is(true));
+        }
     }
 
     @Test
-    public void whenAddThenFindByName() {
-        var sqlTracker = new SqlTracker();
-        sqlTracker.init();
-        var item = sqlTracker.add(new Item("OOO"));
-        List<Item> result = sqlTracker.findByName("OOO");
-        assertThat(result, Matchers.notNullValue());
+    public void whenAddThenDelete() throws Exception {
+        try (var tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            var item = tracker.add(new Item("O"));
+            var item2 = new Item("R");
+            boolean result = tracker.delete(String.valueOf(item.getId()));
+            assertThat(result, is(true));
+        }
     }
 
     @Test
-    public void whenAddThenFindById() {
-        var sqlTracker = new SqlTracker();
-        sqlTracker.init();
-        var item = sqlTracker.add(new Item("AAA"));
-        Item result = sqlTracker.findById(String.valueOf(item.getId()));
-        assertThat(result, is(item));
+    public void whenAddThenFindByName() throws Exception {
+        try (var tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            var item = tracker.add(new Item("OOO"));
+            List<Item> result = tracker.findByName("OOO");
+            assertThat(result, Matchers.notNullValue());
+        }
+    }
+
+    @Test
+    public void whenAddThenFindById() throws Exception {
+        try (var tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.init();
+            var item = tracker.add(new Item("AAA"));
+            Item result = tracker.findById(String.valueOf(item.getId()));
+            assertThat(result, is(item));
+        }
     }
 }
