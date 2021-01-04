@@ -4,18 +4,23 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class SqlTrackerTest {
 
-    public Connection init() {
+    public Connection init() throws InterruptedException {
+//        TimeUnit.SECONDS.sleep(10);
         try (InputStream in = SqlTracker.class.getClassLoader()
                 .getResourceAsStream("app.properties")) {
             Properties config = new Properties();
@@ -77,6 +82,15 @@ public class SqlTrackerTest {
             var item = tracker.add(new Item("AAA"));
             Item result = tracker.findById(String.valueOf(item.getId()));
             assertThat(result, is(item));
+        }
+    }
+
+    @Test
+    public void whenOutOfMemory() throws InterruptedException {
+        var list = new LinkedList<>();
+        while (true) {
+            list.add(new int[65536]); // an arbitrary number
+            TimeUnit.SECONDS.sleep(7);
         }
     }
 }
