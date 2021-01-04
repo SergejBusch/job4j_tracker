@@ -85,12 +85,12 @@ public class SqlTrackerTest {
         }
     }
 
-    @Test
-    public void whenOutOfMemory() throws InterruptedException {
-        var list = new LinkedList<>();
-        while (true) {
-            list.add(new int[65536]); // an arbitrary number
-            TimeUnit.SECONDS.sleep(7);
-        }
-    }
+//    @Test
+//    public void whenOutOfMemory() throws InterruptedException {
+//        var list = new LinkedList<>();
+//        while (true) {
+//            list.add(new int[65536]); // an arbitrary number
+//            TimeUnit.SECONDS.sleep(7);
+//        }
+//    }
 }
